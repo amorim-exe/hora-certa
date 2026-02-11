@@ -240,8 +240,10 @@ const App: React.FC = () => {
 
               <div className="mb-4">
                 <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Adicionar Registro</h2>
-                <form onSubmit={handleAddEntry} className="space-y-3">
-                  <div className="grid grid-cols-2 gap-2">
+                <form onSubmit={handleAddEntry} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">Data e Entrada</label>
+                    <div className="grid grid-cols-2 gap-2">
                     <input
                       type="date"
                       value={formData.date}
@@ -255,18 +257,25 @@ const App: React.FC = () => {
                       value={formData.entrance}
                       onChange={(e) => setFormData({...formData, entrance: e.target.value})}
                       className="px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Entrada"
+                      placeholder="08:00"
                       required
                     />
+                    </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">Horário de Almoço</label>
+                    <div className="grid grid-cols-2 gap-2">
                     <input
                       type="time"
                       value={formData.lunchStart}
                       onChange={(e) => setFormData({...formData, lunchStart: e.target.value})}
-                      className="px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Início Almoço"
+                      className={`px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        formData.noLunch 
+                          ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="12:00"
                       disabled={formData.noLunch}
                     />
                     
@@ -274,19 +283,26 @@ const App: React.FC = () => {
                       type="time"
                       value={formData.lunchEnd}
                       onChange={(e) => setFormData({...formData, lunchEnd: e.target.value})}
-                      className="px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Fim Almoço"
+                      className={`px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        formData.noLunch 
+                          ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed' 
+                          : 'border-gray-300'
+                      }`}
+                      placeholder="13:00"
                       disabled={formData.noLunch}
                     />
+                    </div>
                   </div>
                   
-                  <div className="flex gap-2">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">Saída</label>
+                    <div className="flex gap-2">
                     <input
                       type="time"
                       value={formData.exit}
                       onChange={(e) => setFormData({...formData, exit: e.target.value})}
                       className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      placeholder="Saída"
+                      placeholder="17:00"
                       required
                     />
                     
@@ -296,13 +312,22 @@ const App: React.FC = () => {
                     >
                       <PlusCircle className="w-4 h-4" />
                     </button>
+                    </div>
                   </div>
                   
                   <label className="flex items-center">
                     <input
                       type="checkbox"
                       checked={formData.noLunch}
-                      onChange={(e) => setFormData({...formData, noLunch: e.target.checked})}
+                      onChange={(e) => {
+                        const newNoLunch = e.target.checked;
+                        setFormData({
+                          ...formData, 
+                          noLunch: newNoLunch,
+                          lunchStart: newNoLunch ? '' : formData.lunchStart,
+                          lunchEnd: newNoLunch ? '' : formData.lunchEnd
+                        });
+                      }}
                       className="mr-2"
                     />
                     <span className="text-sm text-gray-600">Sem almoço</span>
