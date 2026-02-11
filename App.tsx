@@ -161,10 +161,10 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto p-6">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Gestor de Banco de Horas</h1>
-          <p className="text-gray-600">
+      <div className="max-w-6xl mx-auto p-4 sm:p-6">
+        <header className="mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Gestor de Banco de Horas</h1>
+          <p className="text-sm sm:text-base text-gray-600">
             {settings.companyName && `${settings.companyName} - `}
             {settings.employeeName && settings.employeeName}
           </p>
@@ -199,8 +199,8 @@ const App: React.FC = () => {
           </div>
 
           {activeTab === 'dashboard' && (
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="p-4 sm:p-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                 <div className="bg-blue-50 rounded-lg p-4">
                   <div className="flex items-center justify-between">
                     <div>
@@ -238,80 +238,84 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mb-6">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Adicionar Registro</h2>
-                <form onSubmit={handleAddEntry} className="grid grid-cols-1 md:grid-cols-6 gap-4">
-                  <input
-                    type="date"
-                    value={formData.date}
-                    onChange={(e) => setFormData({...formData, date: e.target.value})}
-                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
-                  />
+              <div className="mb-4">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Adicionar Registro</h2>
+                <form onSubmit={handleAddEntry} className="space-y-3">
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="date"
+                      value={formData.date}
+                      onChange={(e) => setFormData({...formData, date: e.target.value})}
+                      className="px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      required
+                    />
+                    
+                    <input
+                      type="time"
+                      value={formData.entrance}
+                      onChange={(e) => setFormData({...formData, entrance: e.target.value})}
+                      className="px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Entrada"
+                      required
+                    />
+                  </div>
                   
-                  <input
-                    type="time"
-                    value={formData.entrance}
-                    onChange={(e) => setFormData({...formData, entrance: e.target.value})}
-                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Entrada"
-                    required
-                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input
+                      type="time"
+                      value={formData.lunchStart}
+                      onChange={(e) => setFormData({...formData, lunchStart: e.target.value})}
+                      className="px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Início Almoço"
+                      disabled={formData.noLunch}
+                    />
+                    
+                    <input
+                      type="time"
+                      value={formData.lunchEnd}
+                      onChange={(e) => setFormData({...formData, lunchEnd: e.target.value})}
+                      className="px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Fim Almoço"
+                      disabled={formData.noLunch}
+                    />
+                  </div>
                   
-                  <input
-                    type="time"
-                    value={formData.lunchStart}
-                    onChange={(e) => setFormData({...formData, lunchStart: e.target.value})}
-                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Início Almoço"
-                    disabled={formData.noLunch}
-                  />
-                  
-                  <input
-                    type="time"
-                    value={formData.lunchEnd}
-                    onChange={(e) => setFormData({...formData, lunchEnd: e.target.value})}
-                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Fim Almoço"
-                    disabled={formData.noLunch}
-                  />
-                  
-                  <input
-                    type="time"
-                    value={formData.exit}
-                    onChange={(e) => setFormData({...formData, exit: e.target.value})}
-                    className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Saída"
-                    required
-                  />
-                  
-                  <div className="flex items-center space-x-2">
+                  <div className="flex gap-2">
+                    <input
+                      type="time"
+                      value={formData.exit}
+                      onChange={(e) => setFormData({...formData, exit: e.target.value})}
+                      className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Saída"
+                      required
+                    />
+                    
                     <button
                       type="submit"
-                      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center"
                     >
-                      <PlusCircle className="w-5 h-5" />
+                      <PlusCircle className="w-4 h-4" />
                     </button>
-                    
-                    <label className="flex items-center">
-                      <input
-                        type="checkbox"
-                        checked={formData.noLunch}
-                        onChange={(e) => setFormData({...formData, noLunch: e.target.checked})}
-                        className="mr-2"
-                      />
-                      <span className="text-sm text-gray-600">Sem almoço</span>
-                    </label>
                   </div>
+                  
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={formData.noLunch}
+                      onChange={(e) => setFormData({...formData, noLunch: e.target.checked})}
+                      className="mr-2"
+                    />
+                    <span className="text-sm text-gray-600">Sem almoço</span>
+                  </label>
                 </form>
               </div>
 
-              <div className="mb-4 flex justify-between items-center">
-                <h2 className="text-lg font-semibold text-gray-900">Registros</h2>
-                <div className="space-x-2">
+              <div className="mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                <h2 className="text-base sm:text-lg font-semibold text-gray-900">Registros</h2>
+                <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                   <button
                     onClick={handleExportCSV}
-                    className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 inline-flex items-center"
+                    className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 inline-flex items-center justify-center text-sm"
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Exportar CSV
@@ -319,7 +323,7 @@ const App: React.FC = () => {
                   
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 inline-flex items-center"
+                    className="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 inline-flex items-center justify-center text-sm"
                   >
                     <Upload className="w-4 h-4 mr-2" />
                     Importar CSV
@@ -335,52 +339,57 @@ const App: React.FC = () => {
                 </div>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
+              <div className="overflow-x-auto -mx-4 px-4">
+                <div className="min-w-full">
+                  <table className="w-full divide-y divide-gray-200 text-xs sm:text-sm">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dia</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entrada</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Almoço</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Saída</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Saldo</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">Dia</th>
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entrada</th>
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">Almoço</th>
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Saída</th>
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Saldo</th>
+                      <th className="px-2 sm:px-6 py-2 sm:py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {entries.map((entry) => (
                       <tr key={entry.id}>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {formatDateBR(entry.date)}
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
+                          <div className="sm:hidden">
+                            <div className="font-medium">{formatDateBR(entry.date)}</div>
+                            <div className="text-gray-500">{entry.weekday}</div>
+                          </div>
+                          <span className="hidden sm:inline">{formatDateBR(entry.date)}</span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 hidden sm:table-cell">
                           {entry.weekday}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                           {entry.entrance}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900 hidden sm:table-cell">
                           {entry.lunchStart && entry.lunchEnd 
                             ? `${entry.lunchStart} - ${entry.lunchEnd}`
                             : 'Sem almoço'
                           }
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                           {entry.exit}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                           {formatMinutesToTime(entry.totalWorkedMinutes)}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
                           <span className={`${
                             entry.balanceMinutes >= 0 ? 'text-green-600' : 'text-red-600'
                           }`}>
                             {formatMinutesToTime(entry.balanceMinutes)}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-gray-900">
                           <button
                             onClick={() => handleDeleteEntry(entry.id)}
                             className="text-red-600 hover:text-red-900"
@@ -392,6 +401,7 @@ const App: React.FC = () => {
                     ))}
                   </tbody>
                 </table>
+                </div>
                 
                 {entries.length === 0 && (
                   <div className="text-center py-8 text-gray-500">
@@ -403,8 +413,8 @@ const App: React.FC = () => {
           )}
 
           {activeTab === 'settings' && (
-            <div className="p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Configurações</h2>
+            <div className="p-4 sm:p-6">
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Configurações</h2>
               
               <div className="space-y-6">
                 <div>
